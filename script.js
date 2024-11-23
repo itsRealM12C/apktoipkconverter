@@ -56,7 +56,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
 
   } catch (error) {
     // Handle different types of errors
-    console.error("Error occurred:", error);
+    console.error("", error);
     if (error instanceof TypeError) {
       resultDiv.innerHTML = "Network error occurred. Please check your connection or try again later.";
     } else if (error instanceof Error && error.message.includes('HTTP error')) {
