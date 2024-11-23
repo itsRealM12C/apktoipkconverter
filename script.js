@@ -27,12 +27,13 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      // If the response is not OK, throw an error with the status
+      throw new Error(`Failed to fetch: HTTP status ${response.status}`);
     }
 
     // Get the converted file as a Blob
     const blob = await response.blob();
-
+    
     // Create a temporary download link
     const url = window.URL.createObjectURL(blob);
     const downloadButton = document.createElement("button");
@@ -53,38 +54,13 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.appendChild(downloadButton);
 
   } catch (error) {
-    console.error("Fetch error:", error);
-    resultDiv.innerHTML = `Error: ${error.message}`;
+    // Log error to the console for debugging
+    console.error("Error occurred:", error);
+
+    // Provide a user-friendly error message
+    resultDiv.innerHTML = `Error: ${error.message}. Please try again later.`;
+
+    // Additional debugging output to help track the issue
+    alert("An error occurred. Check the console for more details.");
   }
 });
-
-try {
-  const response = await fetch("/cgi-bin/convert.cgi", {
-    method: "POST",
-    body: formData,
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const blob = await response.blob();
-  const url = window.URL.createObjectURL(blob);
-  const downloadButton = document.createElement("button");
-  downloadButton.textContent = "Download .ipk";
-  downloadButton.addEventListener("click", () => {
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "converted.ipk";
-    a.click();
-  });
-
-  document.getElementById("result").innerText = "Conversion successful!";
-  document.getElementById("result").appendChild(downloadButton);
-
-} catch (error) {
-  console.error("Fetch error:", error);
-  document.getElementById("result").innerText = `Error: ${error.message}`;
-}
-
-
