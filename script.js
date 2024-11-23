@@ -20,18 +20,17 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     // Display a loading message
     resultDiv.innerHTML = "Converting... Please wait.";
 
-    // Update the fetch URL if required
-    const response = await fetch("https://itsrealm12c.github.io/apktoipkconverter/cgi-bin/convert.cgi", {
+    // Update the fetch URL to point to the correct backend URL
+    const response = await fetch("https://your-backend-server.com/cgi-bin/convert.cgi", {
       method: "POST",
       body: formData,
     });
 
-    // Check if the response was successful (HTTP status 200)
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // Check if the response body is a Blob (which should be the file)
+    // Get the converted file as a Blob
     const blob = await response.blob();
     if (!blob) {
       throw new Error("No content received from the server.");
