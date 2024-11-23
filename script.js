@@ -20,14 +20,13 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     // Display a loading message
     resultDiv.innerHTML = "Converting... Please wait.";
 
-    // Send the file to the server
+    // Use the full URL for the fetch request
     const response = await fetch("http://localhost:8000/cgi-bin/convert.cgi", {
       method: "POST",
       body: formData,
     });
 
     if (!response.ok) {
-      // If the response is not OK, throw an error with the status
       throw new Error(`Failed to fetch: HTTP status ${response.status}`);
     }
 
@@ -54,13 +53,8 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.appendChild(downloadButton);
 
   } catch (error) {
-    // Log error to the console for debugging
     console.error("Error occurred:", error);
-
-    // Provide a user-friendly error message
     resultDiv.innerHTML = `Error: ${error.message}. Please try again later.`;
-
-    // Additional debugging output to help track the issue
     alert("An error occurred. Check the console for more details.");
   }
 });
