@@ -21,7 +21,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.innerHTML = "Converting... Please wait.";
 
     // Full URL for fetch (replace localhost with your server's address or IP)
-    const response = await fetch("http://localhost:8000/cgi-bin/convert.cgi", {
+    const response = await fetch("https://itsrealm12c.github.io/apktoipkconverter/cgi-bin/convert.cgi", {
       method: "POST",
       body: formData,
     });
