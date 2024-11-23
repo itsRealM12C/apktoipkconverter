@@ -20,19 +20,20 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     // Display a loading message
     resultDiv.innerHTML = "Converting... Please wait.";
 
-    // Use the full URL for the fetch request
+    // Full URL for fetch (replace localhost with your server's address or IP)
     const response = await fetch("http://localhost:8000/cgi-bin/convert.cgi", {
       method: "POST",
       body: formData,
     });
 
+    // Check if the response is okay (status 200-299)
     if (!response.ok) {
       throw new Error(`Failed to fetch: HTTP status ${response.status}`);
     }
 
     // Get the converted file as a Blob
     const blob = await response.blob();
-    
+
     // Create a temporary download link
     const url = window.URL.createObjectURL(blob);
     const downloadButton = document.createElement("button");
@@ -53,6 +54,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.appendChild(downloadButton);
 
   } catch (error) {
+    // Log the error and show an error message
     console.error("Error occurred:", error);
     resultDiv.innerHTML = `Error: ${error.message}. Please try again later.`;
     alert("An error occurred. Check the console for more details.");
