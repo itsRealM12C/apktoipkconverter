@@ -57,3 +57,34 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.innerHTML = `Error: ${error.message}`;
   }
 });
+
+try {
+  const response = await fetch("/cgi-bin/convert.cgi", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+  const downloadButton = document.createElement("button");
+  downloadButton.textContent = "Download .ipk";
+  downloadButton.addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "converted.ipk";
+    a.click();
+  });
+
+  document.getElementById("result").innerText = "Conversion successful!";
+  document.getElementById("result").appendChild(downloadButton);
+
+} catch (error) {
+  console.error("Fetch error:", error);
+  document.getElementById("result").innerText = `Error: ${error.message}`;
+}
+
+
