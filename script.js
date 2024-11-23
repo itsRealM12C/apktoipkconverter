@@ -21,7 +21,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.innerHTML = "Converting... Please wait.";
 
     // Send the file to the server
-    const response = await fetch("/cgi-bin/convert.cgi", {
+    const response = await fetch("http://localhost:8000/cgi-bin/convert.cgi", {
       method: "POST",
       body: formData,
     });
