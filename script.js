@@ -21,7 +21,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
     resultDiv.innerHTML = "Converting... Please wait.";
 
     // Update the fetch URL to point to the correct backend URL
-    const response = await fetch("https://your-backend-server.com/cgi-bin/convert.cgi", {
+    const response = await fetch("https://itsrealm12c.github.io/apktoipkconverter/cgi-bin/convert.cgi", {
       method: "POST",
       body: formData,
     });
